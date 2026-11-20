@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="INFO-VÉRIF RDC - Veille citoyenne contre la désinformation en République démocratique du Congo.">
+  <title>INFO-VÉRIF RDC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <span>Plateforme citoyenne de vérification</span>
+        <span id="currentDate"></span>
+      </div>
+    </div>
+    <nav class="nav container" aria-label="Navigation principale">
+      <a class="brand" href="#accueil" aria-label="INFO-VÉRIF RDC, accueil">
+        <span class="brand-mark">IV</span>
+        <span><strong>INFO-VÉRIF</strong><small>RDC</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mainMenu">☰</button>
+      <div class="nav-links" id="mainMenu">
+        <a class="active" href="#accueil">Accueil</a>
+        <a href="#verifier">Vérifier</a>
+        <a href="#actualites">Actualités</a>
+        <a href="#ia">Détection IA</a>
+        <a href="#scientifique">Recherche</a>
+        <a href="#sources">Sources fiables</a>
+        <a href="#apropos">À propos</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="accueil" class="view active-view">
+      <section class="hero">
+        <div class="hero-pattern"></div>
+        <div class="container hero-inner">
+          <div class="hero-content">
+            <span class="eyebrow">Veille indépendante · RDC</span>
+            <h1>Avant de partager,<br><em>vérifiez.</em></h1>
+            <p>La désinformation circule vite. Recherchez une affirmation, consultez les sources et prenez une décision éclairée.</p>
+            <form id="heroSearch" class="search-box" role="search">
+              <label class="sr-only" for="heroQuery">Affirmation à vérifier</label>
+              <input id="heroQuery" type="search" placeholder="Ex. : Une nouvelle mesure sur les carburants..." required>
+              <button type="submit">Vérifier</button>
+            </form>
+          </div>
+          <aside class="alert-card">
+            <span class="alert-icon">!</span>
+            <div><strong>Réflexe citoyen</strong><p>Vérifiez l'auteur, la date, les sources et les images inversées avant de relayer.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="container stats" aria-label="Statistiques de veille">
+        <article><strong id="statNews">—</strong><span>Articles récupérés</span></article>
+        <article><strong id="statSearches">0</strong><span>Recherches locales</span></article>
+        <article><strong>RDC</strong><span>Veille thématique</span></article>
+        <article><strong>1</strong><span>Objectif : la vérité vérifiable</span></article>
+      </section>
+
+      <section class="container section">
+        <div class="section-heading">
+          <div><span class="kicker">Suivi de l'information</span><h2>Dernières actualités</h2></div>
+          <a class="text-link" href="#actualites">Toutes les actualités →</a>
+        </div>
+        <div id="featuredNews" class="news-grid"><div class="loading">Chargement des actualités…</div></div>
+      </section>
+
+      <section class="container trust-strip">
+        <div><span class="trust-number">01</span><h3>Sourcez</h3><p>Identifiez l'origine des informations.</p></div>
+        <div><span class="trust-number">02</span><h3>Contextez</h3><p>Consultez la date et le contexte complet.</p></div>
+        <div><span class="trust-number">03</span><h3>Partagez prudemment</h3><p>Ne diffusez que ce que vous avez vérifié.</p></div>
+      </section>
+    </section>
+
+    <section id="verifier" class="view container page-section">
+      <header class="page-heading"><span class="kicker">Outil de vérification</span><h1>Vérifier une information</h1><p>Interrogez les outils disponibles et conservez une trace locale de vos recherches.</p></header>
+      <form id="verificationForm" class="verification-form">
+        <label for="verificationQuery">Affirmation ou mots-clés</label>
+        <div class="search-box large"><input id="verificationQuery" type="search" placeholder="Saisissez une affirmation à vérifier" required><button type="submit">Analyser</button></div>
+      </form>
+      <div id="verificationStatus" class="status" aria-live="polite"></div>
+      <div id="verificationResults" class="results-list"></div>
+      <section class="search-history" aria-labelledby="historyTitle">
+        <div class="search-history-heading">
+          <h2 id="historyTitle">Historique des recherches</h2>
+          <button id="clearSearchHistory" type="button">Effacer tout</button>
+        </div>
+        <p class="search-history-note">Historique enregistré uniquement dans ce navigateur.</p>
+        <div id="searchHistoryList" class="search-history-list"></div>
+      </section>
+    </section>
+
+    <section id="actualites" class="view container page-section">
+      <header class="page-heading"><span class="kicker">Veille médiatique</span><h1>Actualités RDC</h1><p>Données issues de GDELT DOC 2.0, du flux RSS Radio Okapi et des sources accessibles depuis votre navigateur.</p></header>
+      <div class="toolbar news-toolbar">
+        <form id="newsSearch"><input type="search" placeholder="Rechercher dans l'actualité RDC" aria-label="Rechercher"><button type="submit">Rechercher</button></form>
+        <button id="refreshNews" type="button">Actualiser</button>
+      </div>
+      <div class="news-filters" aria-label="Filtres des actualités">
+        <label>Source <select id="sourceFilter"><option value="all">Toutes les sources</option><option value="GDELT">GDELT</option><option value="Radio Okapi (RSS)">Radio Okapi (RSS)</option></select></label>
+        <label>Date <select id="dateFilter"><option value="all">Toutes les dates</option><option value="1">Dernières 24 h</option><option value="7">7 derniers jours</option><option value="30">30 derniers jours</option></select></label>
+        <label>Thème <select id="themeFilter"><option value="all">Tous les thèmes</option><option value="politique">Politique</option><option value="économie">Économie</option><option value="sécurité">Sécurité</option><option value="santé">Santé</option><option value="numérique">Numérique</option></select></label>
+      </div>
+      <div id="newsStatus" class="status" aria-live="polite"></div>
+      <div id="newsGrid" class="news-grid"><div class="loading">Chargement…</div></div>
+    </section>
+
+    <section id="ia" class="view container page-section">
+      <header class="page-heading"><span class="kicker">Détection assistée</span><h1>Détection IA</h1><p>Repérez les indices potentiels de contenus synthétiques. Aucun outil automatisé ne permet à lui seul de conclure avec certitude.</p></header>
+      <div class="info-banner"><strong>Attention :</strong> La détection est indicielle. Faites confirmer toute conclusion par une analyse humaine et des sources fiables.</div>
+      <form id="aiForm" class="ai-form"><label for="aiText">Texte à examiner</label><textarea id="aiText" rows="8" placeholder="Collez ici le texte suspect..."></textarea><button type="submit">Effectuer une analyse locale préliminaire</button></form>
+      <div id="aiResult" class="status" aria-live="polite"></div>
+    </section>
+
+    <section id="scientifique" class="view container page-section">
+      <header class="page-heading"><span class="kicker">Publications</span><h1>Recherche scientifique</h1><p>Publications réelles issues de l'API arXiv, triées des plus récentes aux plus anciennes.</p></header>
+      <form id="scienceSearch" class="science-search"><input type="search" placeholder="Ex. : deepfake, misinformation, media literacy" required><button type="submit">Rechercher</button></form>
+      <div id="scienceStatus" class="status" aria-live="polite"></div>
+      <div id="scienceResults" class="publication-list"></div>
+    </section>
+
+    <section id="sources" class="view container page-section">
+      <header class="page-heading"><span class="kicker">Références</span><h1>Sources fiables</h1><p>Organismes et médias utiles pour recouper une information en RDC et dans la région.</p></header>
+      <div class="source-grid">
+        <article><span>01</span><h2>AFP Factuel</h2><p>Service de vérification journalistique de l'agence France-Presse.</p><a href="https://factuel.afp.com/fr" target="_blank" rel="noopener">Consulter le site ↗</a></article>
+        <article><span>02</span><h2>RFI Fact-checking</h2><p>Articles de vérification et observations sur les contenus viraux.</p><a href="https://www.rfi.fr/fr/tag/fact-checking/" target="_blank" rel="noopener">Consulter le site ↗</a></article>
+        <article><span>03</span><h2>Google Fact Check</h2><p>Annuaire des vérifications publiées par des organisations fact-checking.</p><a href="https://toolbox.google.com/factcheck/explorer" target="_blank" rel="noopener">Explorer les fact-checks ↗</a></article>
+        <article><span>04</span><h2>Radio Okapi</h2><p>Média d'information reconnu produisant des contenus sur la RDC.</p><a href="https://www.radiookapi.net/" target="_blank" rel="noopener">Consulter le site ↗</a></article>
+      </div>
+    </section>
+
+    <section id="apropos" class="view container page-section">
+      <header class="page-heading"><span class="kicker">Notre engagement</span><h1>À propos de la plateforme</h1></header>
+      <div class="about-layout"><div><h2>Une veille au service de l'information publique</h2><p>INFO-VÉRIF RDC est une initiative conceptuelle visant à faciliter l'accès aux outils de vérification, aux médias, aux publications scientifiques et aux sources de fact-checking.</p><p>Cette version front-end ne possède pas de rédaction indépendante ni de laboratoire de vérification. Les résultats doivent donc être clairement recoupés avant toute conclusion.</p></div><aside><strong>Nos principes</strong><ul><li>Transparence des sources</li><li>Distinguer fait, analyse et démonstration</li><li>Protection des données locales</li><li>Prudence face aux outils automatisés</li></ul></aside></div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><div class="brand footer-brand"><span class="brand-mark">IV</span><span><strong>INFO-VÉRIF</strong><small>RDC</small></span></div><p>Vérifier pour informer. Informer pour protéger.</p><small>Projet front-end · Données externes soumises aux API disponibles</small></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
